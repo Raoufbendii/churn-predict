@@ -53,6 +53,8 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
 
     # Select only the relevant columns based on selected_colomns
     preprocessed_input_df = input_df[selected_colomns]
+    print("Column names in input_df:", input_df.columns)
+    print("preprocessed_input_df:", preprocessed_input_df)
     scaler = StandardScaler()
     preprocessed_input_df = scaler.fit_transform(preprocessed_input_df)
 
