@@ -41,7 +41,7 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
 
     # Perform label encoding for relevant columns
     le = LabelEncoder()
-    for c in ["PaperlessBilling" , "gender" , "Partner" ,"Dependents" ,"PhoneService" ,"PaperlessBilling" , "Churn"]:
+    for c in ["PaperlessBilling" , "gender" , "Partner" ,"Dependents" ,"PhoneService" ,"PaperlessBilling"]:
         input_df[c] = le.fit_transform(input_df[c])
 
     # Perform one-hot encoding for categorical columns
