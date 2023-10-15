@@ -49,14 +49,25 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
         dummy_data = pd.get_dummies(input_df[c], prefix=c)
         input_df = pd.concat([input_df, dummy_data], axis=1)
         input_df.drop(c, axis=1, inplace=True)
-
     # Select only the relevant columns based on selected_colomns
-    preprocessed_input_df = input_df[selected_colomns]
-    
+    #print(input_df)
+    #preprocessed_input_df = input_df[selected_colomns]
+    zeros_data = np.zeros((len(input_df), len(selected_colomns)))
+    zeros_df = pd.DataFrame(zeros_data, columns=selected_colomns)
+
+    # Iterate through the selected columns and add them to input_df with zeros if they exist, or directly add zeros if they don't
+    for col in selected_colomns:
+        if col in input_df.columns:
+            zeros_df[col] = input_df[col]
+        else:
+            input_df[col] = zeros_df[col]
+
+# Update input_df with the combined data
+    input_df = zeros_df
+  
 
 
-
-    return preprocessed_input_df
+    return input_df
     
 # Load your trained model
 @st.cache(allow_output_mutation=True)
