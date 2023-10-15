@@ -6,7 +6,6 @@ from sklearn.preprocessing import LabelEncoder,StandardScaler
 import joblib
 
 class PredictionInput(BaseModel):
-    customerID: str
     gender: str
     SeniorCitizen: int
     Partner: str
@@ -39,7 +38,6 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
        'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check' , "Churn"]
     # Create a DataFrame from the input_data
     input_dict = input_data.dict()
-    input_dict.pop("customerID", None)  # Remove customerID
     input_df = pd.DataFrame([input_dict])
 
     # Convert TotalCharges to float and handle missing values
@@ -93,7 +91,6 @@ def main():
     st.write("Enter customer information to predict churn.")
 
     # Input fields for user to enter data
-    customer_id = st.text_input("Customer ID:")
     gender = st.selectbox("Gender", ["Male", "Female"])
     senior_citizen = st.radio("Senior Citizen", [0, 1])
     partner = st.selectbox("Partner", ["Yes", "No"])
@@ -118,7 +115,6 @@ def main():
     if tenure and monthly_charges and total_charges and st.button("Predict"):
         # Create a PredictionInput instance with the provided data
         input_data = PredictionInput(
-            customerID=customer_id,
             gender=gender,
             SeniorCitizen=int(senior_citizen),
             Partner=partner,
@@ -149,6 +145,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-if __name__ == "__main__":
-    main()
