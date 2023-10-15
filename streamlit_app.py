@@ -40,11 +40,6 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
     input_dict = input_data.dict()
     input_df = pd.DataFrame([input_dict])
 
-    # Convert TotalCharges to float and handle missing values
-    input_df["TotalCharges"].mask(input_df["TotalCharges"] == ' ', np.nan, inplace=True)
-    input_df["TotalCharges"] = input_df["TotalCharges"].astype(float)
-    input_df["TotalCharges"].fillna(input_df["TotalCharges"].mean(), inplace=True)
-
     # Perform label encoding for relevant columns
     le = LabelEncoder()
     for c in ["PaperlessBilling", "gender", "Partner", "Dependents", "PhoneService", "Churn"]:
@@ -133,7 +128,7 @@ def main():
             PaperlessBilling=paperless_billing,
             PaymentMethod=payment_method,
             MonthlyCharges=float(monthly_charges),
-            TotalCharges=total_charges,
+            TotalCharges=float(total_charges),
         )
 
         # Predict using the preprocessed input
