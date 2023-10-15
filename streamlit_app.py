@@ -34,27 +34,24 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
        'StreamingMovies_No','StreamingMovies_Yes', 'Contract_Month-to-month', 'Contract_One year',
        'Contract_Two year', 'PaymentMethod_Bank transfer (automatic)',
        'PaymentMethod_Credit card (automatic)',
-       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check']
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check' ]
     # Create a DataFrame from the input_data
     input_dict = input_data.dict()
     input_df = pd.DataFrame([input_dict])
 
     # Perform label encoding for relevant columns
     le = LabelEncoder()
-    for c in ["PaperlessBilling", "gender", "Partner", "Dependents", "PhoneService"]:
+    for c in ["PaperlessBilling" , "gender" , "Partner" ,"Dependents" ,"PhoneService" ,"PaperlessBilling" , "Churn"]:
         input_df[c] = le.fit_transform(input_df[c])
 
     # Perform one-hot encoding for categorical columns
-    for c in ["MultipleLines", "InternetService", "OnlineSecurity", "OnlineBackup", "DeviceProtection", 
-              "TechSupport", "StreamingTV", "StreamingMovies", "Contract", "PaymentMethod"]:
+    for c in ["MultipleLines", "InternetService", "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", "StreamingMovies", "Contract", "PaymentMethod"]:
         dummy_data = pd.get_dummies(input_df[c], prefix=c)
         input_df = pd.concat([input_df, dummy_data], axis=1)
         input_df.drop(c, axis=1, inplace=True)
 
     # Select only the relevant columns based on selected_colomns
     preprocessed_input_df = input_df[selected_colomns]
-    print("Column names in input_df:", input_df.columns)
-    print("preprocessed_input_df:", preprocessed_input_df)
     scaler = StandardScaler()
     preprocessed_input_df = scaler.fit_transform(preprocessed_input_df)
 
