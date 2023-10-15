@@ -3,3 +3,4 @@ here is the Telco Customer Churn problem , after making EDA and data cleaning an
 i deployed the model in streamlit cloud and here you can assis it https://churn-predict-sm36f4vfbukmifrqxbjkdw.streamlit.app/
 
 ![images](https://github.com/Raoufbendii/churn-predict/assets/125738804/2e9521c8-c360-4128-8abb-e8692bf20b3c)
+![40537_2019_191_Fig14_HTML](https://github.com/Raoufbendii/churn-predict/assets/125738804/6e1a7725-b8ce-4b79-8415-296b7341db5b)
