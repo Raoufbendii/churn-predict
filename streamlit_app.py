@@ -25,7 +25,6 @@ class PredictionInput(BaseModel):
     PaymentMethod: str
     MonthlyCharges: float
     TotalCharges: float 
-    Churn: str
     
 def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
     selected_colomns = ['SeniorCitizen', 'Partner', 'Dependents', 'tenure',
@@ -35,14 +34,14 @@ def preprocess_input(input_data: PredictionInput) -> pd.DataFrame:
        'StreamingMovies_No','StreamingMovies_Yes', 'Contract_Month-to-month', 'Contract_One year',
        'Contract_Two year', 'PaymentMethod_Bank transfer (automatic)',
        'PaymentMethod_Credit card (automatic)',
-       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check' , "Churn"]
+       'PaymentMethod_Electronic check', 'PaymentMethod_Mailed check']
     # Create a DataFrame from the input_data
     input_dict = input_data.dict()
     input_df = pd.DataFrame([input_dict])
 
     # Perform label encoding for relevant columns
     le = LabelEncoder()
-    for c in ["PaperlessBilling", "gender", "Partner", "Dependents", "PhoneService", "Churn"]:
+    for c in ["PaperlessBilling", "gender", "Partner", "Dependents", "PhoneService"]:
         input_df[c] = le.fit_transform(input_df[c])
 
     # Perform one-hot encoding for categorical columns
